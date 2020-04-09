@@ -1,0 +1,20 @@
+.Footer {
+    height: 100px;
+    background-color: #A5C4D9;
+    color: #FFF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .infoWrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 340px;
+        font-size: 14px;
+        .info {
+            line-height: 18px;
+        }
+    }
+}

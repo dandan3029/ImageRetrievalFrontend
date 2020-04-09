@@ -1,0 +1,29 @@
+.Header {
+    color: #101010;
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+        color: #101010;
+        text-decoration: none;
+
+        &:hover {
+            color: #17C0EF;
+            text-decoration: none;
+        }
+    }
+
+    .navBox {
+        box-sizing: border-box;
+        width: 100px;
+        display: flex;
+        justify-content: flex-end;
+        .navItem {
+
+        }
+    }
+    .active {
+        color: #17C0EF;
+    }
+}
+
