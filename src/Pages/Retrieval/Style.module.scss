@@ -1,0 +1,12 @@
+.Retrieval {
+    min-width: 900px;
+    .ContentWrapper {
+        padding: 0 10%;
+        .ImageCardWrapper {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            // margin-bottom: -10px; // 子元素有margin-bottom: 10px的设置
+        }
+    }
+}

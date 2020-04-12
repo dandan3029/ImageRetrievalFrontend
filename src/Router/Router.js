@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 import PAGE_ID_TO_COMPONENT from './PAGE_ID_TO_COMPONENT';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from "../Config/ROUTE";
