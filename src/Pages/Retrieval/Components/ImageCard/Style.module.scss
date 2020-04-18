@@ -20,16 +20,16 @@
         bottom: 0;
         height: 40%;
         width: 100%;
-        background-image: linear-gradient(rgba(255,255,255,0), rgba(150,150,150,1));
+        background-image: linear-gradient(rgba(255,255,255,0), rgb(71, 143, 226));
         display: none;
     }
-}
-.ImageCard:hover {
-    box-shadow: 10px 10px 5px 10px #ccc inset; // 水平阴影的长度, 垂直阴影的长度, 阴影的模糊值, 水平阴影的外延值, 阴影的颜色, 此值为空，默认为外阴影，设置成inset为内阴影
-    span {
-        display: block;
-    }
-    .mask {
-        display: inline-block;
+    &:hover {
+        box-shadow: 10px 10px 5px 10px #ccc inset; // 水平阴影的长度, 垂直阴影的长度, 阴影的模糊值, 水平阴影的外延值, 阴影的颜色, 此值为空，默认为外阴影，设置成inset为内阴影
+        span {
+            display: block;
+        }
+        .mask {
+            display: inline-block;
+        }
     }
 }

@@ -2,32 +2,54 @@ import React from 'react';
 import Style from './Style.module.scss';
 import LogoSrc from '../../../../Static/Retrieval/logo.png';
 import Input from 'antd/lib/input';
+import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../../../Config/ROUTE'
 
-function Banner () {
-    const { Search } = Input;
-    return (
-        <div className={Style.Banner}>
-            <div className={Style.MainBox}>
-                <div className={Style.SkinBox}></div>
-                <div className={Style.ContentBox}>
-                    <div className={Style.HomeSearch}>
-                        <div className={Style.Logo}>
-                            <img src={LogoSrc} />
-                        </div>
-                        <div className={Style.Search}>
-                            <Search placeholder="请输入您想要搜索的内容" onSearch={value => console.log(value)} enterButton />
-                        </div>
-                        <div className={Style.HotQuery}>
-                            <span>热门搜索：</span>
-                            <a>汽车</a>
-                            <a>行人</a>
-                            <a>飞盘</a>
+import {Redirect, withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+class Banner extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handleOnSearch = this.handleOnSearch.bind(this)
+    }
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired,
+    }
+
+    handleOnSearch (value) {
+        if (value !== '') {
+            this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]}/${value}`);
+        }
+    }
+
+    render () {
+        const { Search } = Input;
+        return (
+            <div className={Style.Banner}>
+                <div className={Style.MainBox}>
+                    <div className={Style.SkinBox}></div>
+                    <div className={Style.ContentBox}>
+                        <div className={Style.HomeSearch}>
+                            <div className={Style.Logo}>
+                                <img src={LogoSrc} />
+                            </div>
+                            <div className={Style.Search}>
+                                <Search placeholder="请输入您想要搜索的内容" onSearch={this.handleOnSearch} enterButton />
+                            </div>
+                            <div className={Style.HotQuery}>
+                                <span>热门搜索：</span>
+                                <a onClick={this.handleOnSearch}>汽车</a>
+                                <a onClick={this.handleOnSearch}>行人</a>
+                                <a onClick={this.handleOnSearch}>飞盘</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
+Banner = withRouter(Banner);
 export default Banner;

@@ -1,10 +1,9 @@
 import React from 'react';
 import Style from './Style.module.scss';
+import {useParams} from 'react-router-dom';
 
-function ImageDetail (props) {
-    var imageId = props.location.search;
-    imageId = imageId.split('=')[1];
-    console.log(imageId)
+function ImageDetail () {
+    let { imageId } = useParams();
     return (
         <div className={Style.ImageDetail}>
             ImageDetail
