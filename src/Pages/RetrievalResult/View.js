@@ -4,7 +4,6 @@ import {useParams} from 'react-router-dom';
 
 function RetrievalResult () {
     let { searchKey } = useParams();
-    console.log(searchKey)
     return (
         <div className={Style.RetrievalResult}>
             retrieval result{searchKey}

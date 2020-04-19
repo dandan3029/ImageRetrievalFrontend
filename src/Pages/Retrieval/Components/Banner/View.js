@@ -10,14 +10,13 @@ import PropTypes from 'prop-types';
 class Banner extends React.Component {
     constructor(props) {
         super(props)
-        this.handleOnSearch = this.handleOnSearch.bind(this)
     }
 
     static contextTypes = {
         router: PropTypes.object.isRequired,
     }
 
-    handleOnSearch (value) {
+    handleOnSearch = (value)  => {
         if (value !== '') {
             this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]}/${value}`);
         }
@@ -35,13 +34,13 @@ class Banner extends React.Component {
                                 <img src={LogoSrc} />
                             </div>
                             <div className={Style.Search}>
-                                <Search placeholder="请输入您想要搜索的内容" onSearch={this.handleOnSearch} enterButton />
+                                <Search placeholder="请输入您想要搜索的内容" onSearch={this.handleOnSearch.bind(this)} enterButton />
                             </div>
                             <div className={Style.HotQuery}>
                                 <span>热门搜索：</span>
-                                <a onClick={this.handleOnSearch}>汽车</a>
-                                <a onClick={this.handleOnSearch}>行人</a>
-                                <a onClick={this.handleOnSearch}>飞盘</a>
+                                <a onClick={this.handleOnSearch.bind(this, '汽车')}>汽车</a>
+                                <a onClick={this.handleOnSearch.bind(this, '行人')}>行人</a>
+                                <a onClick={this.handleOnSearch.bind(this, '飞盘')}>飞盘</a>
                             </div>
                         </div>
                     </div>
