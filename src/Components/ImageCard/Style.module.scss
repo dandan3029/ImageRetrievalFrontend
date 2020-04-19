@@ -25,6 +25,7 @@
     }
     &:hover {
         box-shadow: 10px 10px 5px 10px #ccc inset; // 水平阴影的长度, 垂直阴影的长度, 阴影的模糊值, 水平阴影的外延值, 阴影的颜色, 此值为空，默认为外阴影，设置成inset为内阴影
+        // transform: scale(1.2);
         span {
             display: block;
         }

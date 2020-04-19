@@ -5,7 +5,7 @@ import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
 
 import Banner from './Components/Banner';
 import ImageClassSelector from './Components/ImageClassSelector';
-import ImageCard from './Components/ImageCard';
+import ImageCard from '../../Components/ImageCard';
 
 import Skeleton from 'antd/lib/skeleton';
 

@@ -4,7 +4,7 @@ import LogoSrc from '../../../../Static/Retrieval/logo.png';
 import Input from 'antd/lib/input';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../../../Config/ROUTE'
 
-import {Redirect, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Banner extends React.Component {
