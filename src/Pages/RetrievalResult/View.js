@@ -1,14 +1,13 @@
 import React from 'react';
 import Style from './Style.module.scss';
-import Input from 'antd/lib/input';
 import Skeleton from 'antd/lib/skeleton';
 import {Link} from 'react-router-dom';
 
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
-import logoSrc from '../../Static/logo.png';
 import CardImageSrc from '../../Config/CARD_IMAGE';
 import ImageCard from '../../Components/ImageCard';
 import SearchBar from '../../Components/SearchBar';
+import HorizontalLine from '../../Components/HorizontalLine';
 
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -21,10 +20,6 @@ class RetrievalResult extends React.Component {
             hasGotData: false,
             imageCardList: [],
         }
-    }
-
-    static contextTypes = {
-        router: PropTypes.object.isRequired,
     }
     
     handleOnSearch = (value)  => {
@@ -105,19 +100,10 @@ class RetrievalResult extends React.Component {
     }
 
     render() {
-        const { Search } = Input;
-        console.log(this.state.searchKey)
         return (
         <div className={Style.RetrievalResult}>
-            {/* <div className={Style.SearchBar}>
-                <div className={Style.LogoBox}>
-                    <img className={Style.LogoImg} src={logoSrc}/>
-                </div>
-                <div className={Style.SearchBox}>
-                    <Search placeholder="请输入您想要搜索的内容" onSearch={this.handleOnSearch.bind(this)} enterButton />
-                </div>
-            </div> */}
             <SearchBar onSearch={this.handleOnSearch.bind(this)}/>
+            <HorizontalLine />
             <div className={Style.MainContent}>
                 <div className={Style.ImageCardWrapper}>
                     <Skeleton loading={!this.state.hasGotData} active={true}>

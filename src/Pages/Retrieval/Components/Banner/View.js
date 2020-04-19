@@ -5,15 +5,10 @@ import Input from 'antd/lib/input';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../../../Config/ROUTE'
 
 import {withRouter} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 class Banner extends React.Component {
     constructor(props) {
         super(props)
-    }
-
-    static contextTypes = {
-        router: PropTypes.object.isRequired,
     }
 
     handleOnSearch = (value)  => {

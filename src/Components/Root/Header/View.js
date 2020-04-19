@@ -17,9 +17,9 @@ function Header (props)
                     ? <Link className={`${Style.navItem} ${isSelfCenterLinkActive ? Style.active : null}`}
                             to="/SelfCenter">个人中心</Link>
                     :   [<Link className={`${Style.navItem} ${isLoginLinkActive ? Style.active : null}`}
-                               to="/Login">登录</Link>,' / ',
-                         <Link className={`${Style.navItem} ${isSignUpLinkActive ? Style.active : null}`}
-                               to="/SignUp">注册</Link>]
+                               to="/Login" key='/Login'>登录</Link>,' / ',
+                         <Link className={`${Style.navItem} ${isSignUpLinkActive ? Style.active : null}` }
+                               to="/SignUp" key='/SignUp'>注册</Link>]
                 }
             </div>
         </nav>

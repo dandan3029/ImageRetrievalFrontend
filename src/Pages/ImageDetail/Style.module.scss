@@ -1,0 +1,89 @@
+.ContentWrapper {
+    position: relative;
+    top:-50px;
+    padding: 0 50px;
+    margin: 20px 0 -50px 0;
+    min-width: 1000px;
+
+    display: flex;
+    justify-content: space-between;
+
+    .LeftContent {
+        box-sizing: border-box;
+        width: 78%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .ImageView {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #bbb;
+            .Previous, .Next {
+                width: 120px;
+                height: 500px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    display: inline-block;
+                    width: 120px;
+                    height: auto;
+                }
+            }
+            img {
+                display: inline-block;
+                height: 100%;
+                overflow: hidden;
+            }
+        }
+
+        .DownloadButton {
+            width: 100%;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .RightContent {
+        box-sizing: border-box;
+        width: 20%;
+        .ImageInfoHeader {
+            height: 36px;
+            border: 1px solid #bbb;
+            display: flex;
+            align-items: center;
+
+            span {
+                display: inline-block;
+                height: 60%;
+                border-left: 3px solid #43A1F2;
+                padding-left: 10px;
+            }
+        }
+        .ImageInfoItem {
+            height: 36px;
+            border: 1px solid #bbb;
+            border-bottom: 1px dashed #bbb;
+            border-top: none;
+            display: flex;
+            align-items: center;
+
+            .label {
+                width: 90px;
+                padding-left: 13px;
+            }
+
+            span {
+                
+            }
+
+            &:last-child {
+                border-bottom: 1px solid #bbb;
+            }
+        }
+    }
+}

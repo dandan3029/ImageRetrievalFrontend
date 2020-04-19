@@ -3,79 +3,10 @@
     $searchWidth: 400px;
     min-width: 800px;
 
-    .SearchBar {
-        transform: translateY(-50px);
-        height: 50px;
-        width: 600px;
-        // z-index: -1;
-        padding: 0 50px;
-        display: flex;
-        align-items: center;
-
-        .LogoBox {
-            height: 30px;
-            margin-right: 20px;
-            display: inline-block !important;
-            .LogoImg {
-                display: inline-block;
-                height: 30px;
-            }
-        }
-
-        .SearchBox {
-            width: $searchWidth;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            :global {
-                // 搜索文本框
-                .ant-input {
-                    height: $searchHeight;
-                    box-sizing: border-box;
-                    background: opacity(0);
-                    font-size: 15px;
-                    background-color: transparent;
-                    border-right: none;
-                    // color: white;
-                }
-                .ant-input::after {
-                    background: white;
-                }
-                // 搜索按钮
-                .ant-input-search-button {
-                    height: $searchHeight;
-                    width: 60px;
-                    background-color: #43A1F2;
-                    border-left: none;  // 这里需要变短一些
-                }
-                .ant-btn:focus, .ant-btn:hover, .ant-btn:active {
-                    outline: 0;
-                }
-                .ant-input-group-addon {
-                    background-color: transparent;
-                }
-                .ant-input-group-addon:before {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 24%;
-                    bottom: auto;
-                    right: auto;
-                    height: 52%;
-                    width: 2px;
-                    background-color: white;
-                }
-                .anticon-search svg{
-                    height: 20px;
-                    width: 20px;
-                }
-            }
-        }
-    }
-
     .MainContent {
         transform: translateY(-50px);
         padding: 0 50px;
+        margin: 30px 0 -50px 0;
         .ImageCardWrapper {
             display: flex;
             justify-content: space-between;
