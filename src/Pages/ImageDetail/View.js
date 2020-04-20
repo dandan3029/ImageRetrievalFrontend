@@ -72,6 +72,14 @@ class ImageDetail extends React.Component {
         image.src = src;
     }
 
+    switchImage(instruct) {
+        if ( instruct === 'prev') {
+            console.log('prev');
+        } else if (instruct === 'next') {
+            console.log('next');
+        }
+    }
+
     render() {
         const imageInfo = this.state.imageInfo;
         return (
@@ -81,11 +89,11 @@ class ImageDetail extends React.Component {
                 <div className={Style.ContentWrapper}>
                     <div className={Style.LeftContent}>
                         <div className={Style.ImageView}>
-                            <div className={Style.Previous}>
+                            <div className={Style.Previous} onClick={this.switchImage.bind(this, 'prev')}>
                                 <img src={previousSrc} />
                             </div>
                             <img src={this.state.imageInfo.imageSrc} />
-                            <div className={Style.Next}>
+                            <div className={Style.Next} onClick={this.switchImage.bind(this, 'next')}>
                                 <img src={nextSrc} />
                             </div>
                         </div>

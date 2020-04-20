@@ -21,8 +21,8 @@
             justify-content: space-between;
             border: 1px solid #bbb;
             .Previous, .Next {
-                width: 120px;
-                height: 500px;
+                width: 80px;
+                height: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -31,6 +31,10 @@
                     display: inline-block;
                     width: 120px;
                     height: auto;
+                }
+
+                &:hover {
+                    background-color: #ccc;
                 }
             }
             img {
