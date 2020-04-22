@@ -1,9 +1,12 @@
 import React from 'react';
+import AccountPageCard from '../../Components/AccountPageCard';
 
 function Login ()
 {
     return (
-        <div>Login</div>
+        <AccountPageCard>
+            Login
+        </AccountPageCard>
     )
 }
 

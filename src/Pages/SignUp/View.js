@@ -1,9 +1,13 @@
 import React from 'react';
 
+import AccountPageCard from '../../Components/AccountPageCard';
+
 function SignUp ()
 {
     return (
-        <div>SignUp</div>
+        <AccountPageCard>
+            AignUp
+        </AccountPageCard>
     )
 }
 
