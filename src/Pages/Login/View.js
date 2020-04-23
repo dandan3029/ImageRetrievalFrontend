@@ -1,11 +1,14 @@
 import React from 'react';
 import AccountPageCard from '../../Components/AccountPageCard';
+import Style from './Style.module.scss';
 
 function Login ()
 {
     return (
         <AccountPageCard>
-            Login
+            <div className={Style.Login}>
+                Login
+            </div>
         </AccountPageCard>
     )
 }
