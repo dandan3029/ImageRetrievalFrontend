@@ -9,10 +9,6 @@ import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 import {Link, withRouter} from 'react-router-dom';
 
-function onSubmit () {
-    console.log("onSubmit");
-}
-
 function SignUp (props)
 {
     const { userNameText, passwordText, confirmPasswordText, emailText, vertificationCodeText, 

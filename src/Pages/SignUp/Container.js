@@ -3,7 +3,6 @@ import SignUp from './View';
 import {REGEX} from '../../Config'
 
 import message from 'antd/lib/message';
-import { useParams } from 'react-router-dom';
 
 class SignUpContainer extends React.Component {
     constructor(props) {
