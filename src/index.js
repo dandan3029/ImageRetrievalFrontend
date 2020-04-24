@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import Routes from './Router/Router';
 import * as serviceWorker from './serviceWorker';
 import './ModuleConfig';
+import {Provider} from 'react-redux';
+import Store from './Store';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Routes />
-  </React.StrictMode>,
+    <Provider store={Store}>
+      <Routes />
+    </Provider>,
   document.getElementById('root')
 );
 

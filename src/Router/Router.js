@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 import PAGE_ID_TO_COMPONENT from './PAGE_ID_TO_COMPONENT';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from "../Config/ROUTE";
-import Rooter from '../Components/Root';
+import RootContainer from '../ConponentContainers/RootContainer';
 
 const Routes = () => (
     <Router>
-        <Rooter>
-        <Switch>
+        {/* <Route path='/' component={RootContainer}> */}
+        <RootContainer>
           <Redirect exact from="/" to={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]} />
           <Route path={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]+'/:searchKey'}
                   component={PAGE_ID_TO_COMPONENT[PAGE_ID.RETRIEVALRESULT]}
@@ -25,8 +25,9 @@ const Routes = () => (
                                                           component={PAGE_ID_TO_COMPONENT[PAGE_ID]}
                                                           key={PAGE_ID_TO_ROUTE[PAGE_ID]} />)
           }
-        </Switch>
-        </Rooter>
+        </RootContainer>
+          
+        {/* </Route> */}
     </Router>
 )
 
