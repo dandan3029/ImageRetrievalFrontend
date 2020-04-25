@@ -15,15 +15,21 @@ const Routes = () => (
         <RootContainer>
           <Redirect exact from="/" to={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]} />
           <Route path={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]+'/:searchKey'}
-                  component={PAGE_ID_TO_COMPONENT[PAGE_ID.RETRIEVALRESULT]}
-                  key={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]} />
+                 component={PAGE_ID_TO_COMPONENT[PAGE_ID.RETRIEVALRESULT]}
+                 key={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]} />
           <Route path={PAGE_ID_TO_ROUTE[PAGE_ID.IMAGEDETAIL]+'/:imageId'}
-                  component={PAGE_ID_TO_COMPONENT[PAGE_ID.IMAGEDETAIL]}
-                  key={PAGE_ID_TO_ROUTE[PAGE_ID.IMAGEDETAIL]} />
+                 component={PAGE_ID_TO_COMPONENT[PAGE_ID.IMAGEDETAIL]}
+                 key={PAGE_ID_TO_ROUTE[PAGE_ID.IMAGEDETAIL]} />
           {
-            Object.values(PAGE_ID).map(PAGE_ID => <Route  path={PAGE_ID_TO_ROUTE[PAGE_ID]}
-                                                          component={PAGE_ID_TO_COMPONENT[PAGE_ID]}
-                                                          key={PAGE_ID_TO_ROUTE[PAGE_ID]} />)
+            Object.values(PAGE_ID).map(pageId => { 
+              if(pageId !== PAGE_ID.RETRIEVALRESULT && pageId !== PAGE_ID.IMAGEDETAIL){
+                console.log(pageId)
+                return (
+                  <Route  path={PAGE_ID_TO_ROUTE[pageId]}
+                          component={PAGE_ID_TO_COMPONENT[pageId]}
+                          key={PAGE_ID_TO_ROUTE[pageId]} />
+                )
+              }})
           }
         </RootContainer>
           
