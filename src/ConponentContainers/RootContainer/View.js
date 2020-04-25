@@ -38,10 +38,6 @@ class RootContainer extends React.Component {
     render () {
         const {children, hasLoggedIn} = this.props;
         const currentPageId = ROUTE_TO_PAGE_ID[this.props.location.pathname];
-        console.log(this.props);
-        console.log(currentPageId)
-        console.log("11111", this.shouldRetrievalLinkActive(currentPageId),this.shouldLoginLinkActive(currentPageId),
-        this.shouldSignUpLinkActive(currentPageId), this.shouldSelfCenterLinkActive(currentPageId))
         return (
             <Root hasLoggedIn={hasLoggedIn}
                   isRetrievalLinkActive={this.shouldRetrievalLinkActive(currentPageId)}
