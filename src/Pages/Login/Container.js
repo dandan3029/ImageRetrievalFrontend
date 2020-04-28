@@ -2,7 +2,9 @@ import React from 'react';
 import Login from './View';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
 import {REGEX} from '../../Config';
+import {Actions as AuthProcessorActions} from '../../Components/AuthProcessor';
 
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import message from 'antd/lib/message';
 
@@ -16,7 +18,11 @@ class LoginContainer extends React.Component {
     }
 
     componentDidMount() {
-
+        const {hasLoggedIn} = this.props;
+        if (hasLoggedIn) {
+            message.warning('您已登录！')
+            this.props.history.push(PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]);
+        }
     }
 
     onSubmit() {
@@ -31,6 +37,8 @@ class LoginContainer extends React.Component {
         }
         else
         {
+            const {setLoggedIn} = this.props;
+            setLoggedIn();
             this.props.history.push(PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]);
             // const {setLoggedIn} = this.props;
             // const requestIsSuccessful = await Api.sendPostLoginRequestAsync(username, password);
@@ -67,5 +75,17 @@ class LoginContainer extends React.Component {
     }
 }
 
+const mapStateToProps = state =>
+{
+    const {AuthProcessor: {hasLoggedIn}} = state;
+    return {
+        hasLoggedIn,
+    };
+};
+
+const mapDispatchToProps = {
+    setLoggedIn: AuthProcessorActions.setLoggedInAction,
+};
+
 LoginContainer = withRouter(LoginContainer);
-export default LoginContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

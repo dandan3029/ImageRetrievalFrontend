@@ -3,10 +3,15 @@ import thunk from 'redux-thunk';
 
 // import all the reducers
 import {Reducer as AuthProcessorReducer} from './Components/AuthProcessor';
+import {Reducer as ActiveImageCardProcessorReducer} from './Components/ActiveImageCardProcessor';
 
 const initValues = {
     AuthProcessor: {
-        hasLoggedIn: true,
+        hasLoggedIn: false,
+    },
+    ActiveImageCardProcessor: {
+        activeImageCardList: [],
+        activeImageCardIndex: 0
     }
 };
 
@@ -20,6 +25,7 @@ const storeEnhancers = compose(
 // all the Reducers
 const Reducer = combineReducers({
     AuthProcessor: AuthProcessorReducer,
+    ActiveImageCardProcessor: ActiveImageCardProcessorReducer,
 });
 
 export default createStore(Reducer, initValues, storeEnhancers);

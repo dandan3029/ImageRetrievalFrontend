@@ -6,10 +6,12 @@ import ImageSrc from '../../Static/000000131444.jpg';
 import previousSrc from '../../Static/left.png';
 import nextSrc from '../../Static/right.png';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
+import {Actions as ActiveImageCardProcessorAction} from '../../Components/ActiveImageCardProcessor';
 
 import Button from 'antd/lib/button';
 import {DownloadOutlined} from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 class ImageDetail extends React.Component {
     constructor(props) {
@@ -22,18 +24,29 @@ class ImageDetail extends React.Component {
 
     componentDidMount() {
         const {imageId} = this.props.match.params;
+        const {activeImageCardList, setActiveImageCardIndex} = this.props;
+        var activeImageCardIndex = 0
+        for(var i = 0 ; i < activeImageCardList.length; i ++ ) {
+            var currentId = activeImageCardList[i].imageId;
+            if (currentId == imageId) {
+                activeImageCardIndex = i;
+                setActiveImageCardIndex(activeImageCardIndex);
+                break;
+            }
+        }
+        // send api request to get the imageInfo
         const imageInfo = {
-            imageId: '0',
+            imageId: imageId,
             imageName: '1.png',
-            imageSrc: ImageSrc,
+            imageSrc: activeImageCardList[activeImageCardIndex].imageSrc,
             height: 400,
             width: 500,
-            objects: "人物"
+            objects: activeImageCardList[activeImageCardIndex].description
         }
         this.setState({
             imageId: imageId,
             imageInfo: imageInfo
-        })
+        });
     }
 
     handleOnSearch(value) {
@@ -73,11 +86,38 @@ class ImageDetail extends React.Component {
     }
 
     switchImage(instruct) {
+        const {activeImageCardIndex, activeImageCardList, setActiveImageCardIndex} = this.props;
+        var currentImageCardIndex = 0
         if ( instruct === 'prev') {
             console.log('prev');
+            if (activeImageCardIndex > 0) {
+                currentImageCardIndex = activeImageCardIndex - 1;
+            } else {
+                currentImageCardIndex = activeImageCardIndex;
+            }
         } else if (instruct === 'next') {
             console.log('next');
+            if (activeImageCardIndex < activeImageCardList.length - 1) {
+                currentImageCardIndex = activeImageCardIndex + 1;
+            } else {
+                currentImageCardIndex = activeImageCardIndex;
+            }
         }
+        setActiveImageCardIndex(currentImageCardIndex);
+        const currentImageId = activeImageCardList[currentImageCardIndex].imageId;
+        // send api request to get the imageInfo
+        const imageInfo = {
+            imageId: currentImageId,
+            imageName: '2.png',
+            imageSrc: activeImageCardList[currentImageCardIndex].imageSrc,
+            height: 400,
+            width: 500,
+            objects: activeImageCardList[currentImageCardIndex].description,
+        }
+        this.setState({
+            imageId: currentImageId,
+            imageInfo: imageInfo
+        });
     }
 
     render() {
@@ -126,5 +166,18 @@ class ImageDetail extends React.Component {
     }
 }
 
+const mapStateToProps = state => {
+    const {ActiveImageCardProcessor: {activeImageCardList, activeImageCardIndex}} = state; 
+    return {
+        activeImageCardList,
+        activeImageCardIndex
+    };
+};
+
+const mapDispatchToProps = {
+    setActiveImageCardIndex: ActiveImageCardProcessorAction.setActiveImageCardIndex,
+    setActiveImageCardList: ActiveImageCardProcessorAction.setActiveImageCardList,
+};
+
 ImageDetail = withRouter(ImageDetail);
-export default ImageDetail;
+export default connect(mapStateToProps, mapDispatchToProps)(ImageDetail);

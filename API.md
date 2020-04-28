@@ -34,172 +34,81 @@
 
 ## 各个请求的详细信息 (所有请求前缀均为 `/server`)
 
-### 投保信息列表部分（请求前缀为 `/insurancePurchasingProcess`）
+### 精选图片列表部分（请求前缀为 `/retrieval`）
 
-#### `/getInsurancePurchasingInfoList`
+#### `/getImageCardList`
 
-- 功能说明：获取个人投保信息列表
+- 功能说明：获取精选图片列表
 - 请求方法：GET
-- 请求体：
-```js
-{
-    email: String,                                // 用户电子邮件
-}
-```
+- 请求体：无
 - 响应体：
 ```js
 {
-    insurancePurchasingInfoList: [                  // 数组，内含多条投保信息
+    imageCardList: [                  // 数组，内含多条图片信息
         {
-            insurancePurchasingInfoId: String,      // 这条信息的唯一识别 ID
-            insuranceType: String,                  // 保险类型
-            insuranceCompany:String,                // 投保该保险所在保险公司
-            insurancePurchasingTime: String,        // 投保时间
-            insurancePeriod: Number,                // 保险时长
-            insurancePrice: Number,                 // 保金，单位人民币元
-            publicKey: String,                      // 投保人公钥
-            insurancePurchasingStage: ENUM_NUMBER,  // 投保阶段，枚举值
-            responsiblePersonId: Number,            // 负责人 ID，用于获取负责人信息
-            responsiblePersonName: String,          // 负责人姓名
-            insuranceId: String,                    // 所购买保险的 保险ID
+            imageId: String,                        // 这条信息的唯一识别 ID
+            imageSrc: String,                       // 图片的url
+            description: String,                    // 图片中的兴趣物体
         },
     ]
 }
-```
-- 其他说明
-  - 投保阶段枚举值
-```js
-{
-    ALL_STAGES: -1, // 所有状态，开发用
-    APPLICATION: 0, // 投保人申请
-    INSURANCE_COMPANY_VERIFY: 1,      // 保险公司审核
-    PAY: 2,         // 投保人缴费，保险公司确认并发布保单
-    COMPLETE: 3,    // 完成
-};
 ```
 
 ---
 
-### 直付处理列表部分（请求前缀为 `/directPaymentProcess`）
+### 搜索结果部分（请求前缀为 `/retrievalResult`）
 
-#### `/getDirectPaymentInfoList`
+#### `/getRetrievalResult`
 
-- 功能说明：获取直付处理信息列表
+- 功能说明：获取搜索结果的图片列表
 - 请求方法：GET
 - 请求体：
 ```js
 {
-    email: String,           // 用户电子邮件
+    keywords: String,           // 用户搜索关键词
 }
 ```
 - 响应体：
 ```js
 {
-    directPaymentInfoList: [        // 数组，内含多条直付信息
+    retrievalResultImageCardList: [                 // 数组，内含多条图片列表信息
         {
-            directPaymentInfoId: String,            // 这条直付信息的唯一识别 ID
-            insuranceCompany: String,               // 投保所在保险公司
-            hospital: String,                       // 需要直付的医院
-            publicKey: String,                      // 投保人公钥
-            directPaymentMoneyAmount: Number,       // 直付金额，单位是人民币元
-            diagnosticResult: String,               // 诊断结果
-            medicalDescription: String,             // 医疗说明
-            insurancePurchasingInfoId: String,      // 对应保险投保信息的 ID
-            directPaymentStage: ENUM_NUMBER,        // 枚举值，直付阶段
+            imageId: String,                        // 这条信息的唯一识别 ID
+            imageSrc: String,                       // 图片的url
+            description: String,                    // 图片中的兴趣物体
         },
     ]
 }
 ```
-- 其他说明
-  - 直付阶段枚举值
-```js
-{
-    ALL_STAGES: -1,                         // 所有状态，开发用
-    APPLICATION: 0,                         // 投保人申请
-    HOSPITAL_CONFIRM_PAYABLE: 1,            // 待医院确认是否可以直付
-    INSURANCE_COMPANY_VERIFY_AND_PAY: 2,    // 待保险公司审核及支付
-    HOSPITAL_CONFIRM_PAYMENT: 3,            // 医院已确认收款
-    COMPLETE: 4,                            // 完成
-};
-```
 
 --- 
 
-### 投保详情部分（请求前缀为 `/insurancePurchasingDetail`）
+### 图片详情部分（请求前缀为 `/imageDetail`）
 
-#### `/getInsurancePurchasingDetailInfo`
+#### `/getImageInfo`
 
 - 功能说明：获取投保详情信息
 - 请求方法：GET
 - 请求体：
 ```js
 {
-    insurancePurchasingInfoId: String,      // 投保信息ID
+    imageId: String,      // 图片信息ID
 }
 ```
 - 响应体：
 ```js
 {
-    insurancePurchasingInfoId: String,      // 这条信息的唯一识别 ID
-    electronicInsurancePolicy: String,      // 电子保单
-    insuranceId: String,                    // 保险的 ID
-    insuranceName: String,                  // 保险的名字
-    isSpecialMedicalCare: Number,           // 是否是特殊医疗，0 或 1
-    hasSocialSecurity: Number,              // 有无社保，0 或 1
-    insuranceAmount: Number,                // 保额，单位是人民币元
-    insurancePeriod: String,                // 保险期限
-    insuranceDiseaseType: String,           // 保险病种
-    coveringAge: String,                    // 承保年龄
-    insurancePrice: Number,                 // 保费价格，单位是人民币元
+    imageId: String,                    // 这张图片的唯一识别 ID
+    imageName: String,                  // 图片名称
+    imageSrc: String,                   // 图片地址
+    height: Number,                     // 图片高度
+    width: Number,                      // 图片宽度
+    objects: String,                    // 图片兴趣物体列表
 }
 ```
 - 其他说明：无
 
 ---
-
-#### `/submitStartDirectPayment`
-
-- 功能说明：发起直付
-- 请求方法：POST
-- 请求体：
-```js
-{
-    insurancePurchasingInfoId: String,      // 投保 ID
-}
-```
-- 响应体：无
-- 其他说明：无
-
----
-
-### 直付详情部分（请求前缀为`/directPaymentDetail`）
-
-#### `/getDirectPaymentInfo`
-
-- 功能说明：获取直付详细信息
-- 请求方法：GET
-- 请求体：
-```js
-{
-    directPaymentInfoId: String,            // 直付信息 ID
-}
-```
-- 响应体
-```js
-{
-    directPaymentInfoId: String,            // 这条直付信息的唯一识别 ID
-    insuranceCompany: String,               // 投保所在保险公司
-    hospital: String,                       // 需要直付的医院
-    publicKey: String,                      // 投保人公钥
-    directPaymentMoneyAmount: Number,       // 直付金额，单位是人民币元
-    diagnosticResult: String,               // 诊断结果
-    medicalDescription: String,             // 医疗说明
-    insurancePurchasingInfoId: String,      // 对应保险投保信息的 ID
-    directPaymentStage: ENUM_NUMBER,        // 枚举值，直付阶段
-}
-```
-- 其他说明： 无
-
 
 ### 帐号相关部分（请求前缀为 `/account`）
 
@@ -249,9 +158,6 @@
 {
     username: String,           // 用户名
     password: String,           // 密码
-    name: String,               // 姓名
-    age: Number,                // 年龄
-    address: String,            // 家庭住址
     email: String,              // 邮箱
     verificationCode: String    // 验证码
 }
@@ -263,7 +169,7 @@
 
 ### 个人中心部分（请求前缀为`/personalCenter`）
 
-#### `/getPersonalInfo`
+#### `/getUserInfo`
 
 - 功能说明：获取个人基本信息
 - 请求方法：GET
@@ -276,18 +182,15 @@
 - 响应体
 ```js
 {
-    name: String,          // 姓名
-    age: Number,           // 年龄
-    location: String,      // 住址
+    username: String,      // 用户名
+    password: String,      // 密码
     email: String,         // 邮箱
-    publicKey: String,     // 公钥
-    privateKey: String,    // 私钥
 }
 ```
 - 其他说明： 无
 
-#### `/getMedicalRecordInfoList`
-- 功能说明： 获取个人病历列表
+#### `/getUserImageCardLis`
+- 功能说明： 获取个人图片列表
 - 请求方法：GET
 - 请求体： 
 ```js
@@ -298,30 +201,31 @@
 - 响应体：
 ```js
 {
-    medicalRecordInfoList:[
+    imageCardList:[
         {
-            medicalRecordInfoId: String,   // 病历 ID
-            treatmentDate: String,         // 接受治疗时间
-            treatmentHospital: String,     // 接收治疗所在医院
-            treatmentDoctor: String,       // 治疗的医生
-            publicKey: String,             // 病人公钥
-            medicalRecordContent: String,  // 病例内容
+            uid: String,                   // 图片ID
+            name: String,                  // 图片名称
+            status: String,                // 上传状态
+            url: String,                   // 图片地址
+            description: String,           // 兴趣物体列表
         },
     ]
 }
 ```
 - 其他说明： 无
 
-#### `/authorizationMedicalRecord`
-- 功能说明： 提交病例授权信息
+#### `/uploadImage`
+- 功能说明： 上传个人图片
 - 请求方法： POST
 - 请求体：
 ```js
 {
-    publicKey: String,   // 用户公钥
+    email: String,              // 用户邮箱
+    uid: String,                // 图片ID
+    name: String,               // 图片名称
+    /// 待定
 }
 ```
 - 响应体：无
-- 其他说明： 无
 
 --- 
