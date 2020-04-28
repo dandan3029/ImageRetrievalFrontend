@@ -1,14 +1,13 @@
 import React from 'react';
 import Style from './Style.module.scss';
 import Card from '../../Components/Card';
-import ImageCard from '../../Components/ImageCard';
-import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
 
 import Skeleton from 'antd/lib/skeleton';
-import {Link} from 'react-router-dom';
+import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
+import Upload from 'antd/lib/upload';
 
 function SelfCenter(props) {
-    const {userInfo, imageCardList, hasGotData, onUploadImage} = props;
+    const {userInfo, imageCardList, hasGotData, loading, beforeUpload, onChange, onPreview } = props;
     return (
         <div className={Style.SelfCenter}>
             <div className={Style.background} />
@@ -33,15 +32,16 @@ function SelfCenter(props) {
                     <div className={Style.title}>个人作品</div>
                     <div className={Style.imageCardWrapper}>
                         <Skeleton loading={!hasGotData} active={true}>
-                            {
-                                imageCardList.map( (imageCardInfo, i) => (
-                                    <Link  key={i} to={`${PAGE_ID_TO_ROUTE[PAGE_ID.IMAGEDETAIL]}/${imageCardInfo.imageId}`}>
-                                        <ImageCard imageSrc={imageCardInfo.imageSrc} description={imageCardInfo.description}/>
-                                    </Link>))
-                            }
-                            <div className={Style.uploadImage} onClick={onUploadImage}>
-                                +
-                            </div>
+                            <Upload listType="picture-card"
+                                    className={Style.imageCardWrapper}
+                                    fileList={imageCardList}
+                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                    beforeUpload={beforeUpload}
+                                    onPreview={onPreview}
+                                    onChange={onChange}
+                                    >
+                                {loading?<LoadingOutlined/>: <PlusOutlined /> }
+                            </Upload>
                         </Skeleton>
                     </div>
                 </div>

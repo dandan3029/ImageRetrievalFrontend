@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     padding: 40px auto;
+    background-image: linear-gradient(#c7ecfa, #e3e9ff);
 
     .background {
         position: absolute;
@@ -54,8 +55,27 @@
             width: 100%;
             .imageCardWrapper {
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-start;
                 flex-wrap: wrap;
+                :global {
+                    .ant-upload-list-picture-card-container {
+                        box-sizing: border-box;
+                        height: 200px;
+                        width: 200px;
+                        .ant-upload-list-item {
+                            height: 100%;
+                            width: auto;
+                        }
+                    }
+                    .ant-upload, .ant-upload-select, .ant-upload-select-picture-card {
+                        height: 200px;
+                        width: 192px;
+                        .ant-upload.ant-upload-select-picture-card>.ant-upload {
+                            height: 200px;
+                            width: 192px; 
+                        }
+                    }
+                }
             }
             .uploadImage{
                 height: 200px;

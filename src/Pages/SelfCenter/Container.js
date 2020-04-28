@@ -1,6 +1,10 @@
 import React from 'react';
 import SelfCenter from './View';
 import CardImageSrc from '../../Config/CARD_IMAGE';
+import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
+
+import message from 'antd/lib/message';
+import {withRouter} from 'react-router-dom';
 
 class SelfCenterContainer extends React.Component {
     constructor(props) {
@@ -9,39 +13,52 @@ class SelfCenterContainer extends React.Component {
             userInfo: {},
             imageCardList: [],
             hasGotData: false,
+            loading: false,
         }
     }
 
     componentDidMount() {
         const imageCardList = [
             {
-                imageId: 0,
-                imageSrc: CardImageSrc[0],
+                uid: 0,
+                name: 'image.png',
+                status: 'done', 
+                url: CardImageSrc[0],
                 description: '人物',
             },
             {
-                imageId: 1,
-                imageSrc: CardImageSrc[1],
+                uid: 1,
+                name: 'image.png',
+                status: 'done',
+                url: CardImageSrc[1],
                 description: '动物',
             },
             {
-                imageId: 2,
-                imageSrc: CardImageSrc[2],
+                uid: 2,
+                name: 'image.png',
+                status: 'done',
+                url: CardImageSrc[2],
                 description: '鸟',
             },
             {
-                imageId: 3,
-                imageSrc: CardImageSrc[3],
+                uid: 3,
+                name: 'image.png',
+                status: 'done',
+                url: CardImageSrc[3],
                 description: '鱼',
             },
             {
-                imageId: 4,
-                imageSrc: CardImageSrc[4],
+                uid: 4,
+                name: 'image.png', 
+                status: 'done',
+                url: CardImageSrc[4],
                 description: '厨具',
             },
             {
-                imageId: 5,
-                imageSrc: CardImageSrc[5],
+                uid: 5,
+                name: 'image.png', 
+                status: 'done',
+                url: CardImageSrc[5],
                 description: '牛奶',
             },
         ];
@@ -52,26 +69,54 @@ class SelfCenterContainer extends React.Component {
             email: '1766392942@qq.com',
         }
         this.setState({
+            loading: false,
             userInfo: userInfo,
             imageCardList: imageCardList,
             hasGotData: hasGotData
         })
     }
 
-    onUploadImage() {
-        console.log('upload image');
+    getBase64(img, callback) {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(img);
+    }
+
+    beforeUpload(file) {
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+            message.error('You can only upload JPG/PNG file!');
+        }
+        const isLt6M = file.size / 1024 / 1024 < 10;
+        if (!isLt6M) {
+            message.error('Image must smaller than 6MB!');
+        }
+        return isJpgOrPng && isLt6M;
+    }
+
+    onChange ({ file, fileList }) {
+        this.setState({imageCardList: fileList});
+    }
+
+    onPreview(file) {
+        const imageId = file.uid;
+        this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.IMAGEDETAIL]}/${imageId}`);
     }
 
     render() {
-        const {userInfo, imageCardList, hasGotData} = this.state;
+        // const {userInfo, loading, imageCardList, hasGotData} = this.state;
         return (
-            <SelfCenter userInfo={userInfo}
-                        imageCardList={imageCardList}
-                        hasGotData={hasGotData}
-                        onUploadImage={this.onUploadImage.bind(this)}
+            <SelfCenter userInfo={this.state.userInfo}
+                        imageCardList={this.state.imageCardList}
+                        hasGotData={this.state.hasGotData}
+                        loading={this.state.loading}
+                        beforeUpload={this.beforeUpload.bind(this)}
+                        onChange={this.onChange.bind(this)}
+                        onPreview={this.onPreview.bind(this)}
                         />
         )
     }
 }
 
+SelfCenterContainer = withRouter(SelfCenterContainer)
 export default SelfCenterContainer;

@@ -23,7 +23,6 @@ const Routes = () => (
           {
             Object.values(PAGE_ID).map(pageId => { 
               if(pageId !== PAGE_ID.RETRIEVALRESULT && pageId !== PAGE_ID.IMAGEDETAIL){
-                console.log(pageId)
                 return (
                   <Route  path={PAGE_ID_TO_ROUTE[pageId]}
                           component={PAGE_ID_TO_COMPONENT[pageId]}
