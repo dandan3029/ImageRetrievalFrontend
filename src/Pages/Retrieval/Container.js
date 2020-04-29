@@ -1,5 +1,5 @@
 import React from 'react';
-import Api from '../../Api';
+import Api from '../../Api/Retrieval';
 import Retrieval from './View';
 import {Actions as ActiveImageCardProcessorActions} from '../../Components/ActiveImageCardProcessor';
 
