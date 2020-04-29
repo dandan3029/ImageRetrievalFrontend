@@ -48,6 +48,7 @@
         {
             imageId: String,                        // 这条信息的唯一识别 ID
             imageSrc: String,                       // 图片的url
+            supercategory: list,                    // 兴趣物体的大类
             description: String,                    // 图片中的兴趣物体
         },
     ]
