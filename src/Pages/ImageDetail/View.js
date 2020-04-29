@@ -89,14 +89,12 @@ class ImageDetail extends React.Component {
         const {activeImageCardIndex, activeImageCardList, setActiveImageCardIndex} = this.props;
         var currentImageCardIndex = 0
         if ( instruct === 'prev') {
-            console.log('prev');
             if (activeImageCardIndex > 0) {
                 currentImageCardIndex = activeImageCardIndex - 1;
             } else {
                 currentImageCardIndex = activeImageCardIndex;
             }
         } else if (instruct === 'next') {
-            console.log('next');
             if (activeImageCardIndex < activeImageCardList.length - 1) {
                 currentImageCardIndex = activeImageCardIndex + 1;
             } else {
