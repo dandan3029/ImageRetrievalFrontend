@@ -1,0 +1,1 @@
+export const CHANGE_FILTER_CLASS_ID = Symbol('changeFilterClassId');

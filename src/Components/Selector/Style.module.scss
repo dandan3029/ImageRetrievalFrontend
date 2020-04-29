@@ -1,9 +1,9 @@
 .Selector {
-    font-size: (28rem/24);
+    font-size: 18px;
     width: 100%;
 
     .series {
-        margin-bottom: (38rem/24);
+        margin-bottom: 38px;
 
         &:last-child {
             margin-bottom: 0;
@@ -12,15 +12,15 @@
         .caption {
             display: inline-block;
             font-weight: bold;
-            margin-right: (122rem/24);
+            margin-right: 20px;
         }
-
+    
         .itemWrapper {
             display: inline-block;
 
             .item {
                 display: inline-block;
-                width: (192rem/24);
+                width: 100px;
                 cursor: pointer;
 
                 &.active, &:hover {

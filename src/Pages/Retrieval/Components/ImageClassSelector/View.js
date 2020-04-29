@@ -1,20 +1,18 @@
 import React from 'react';
 import Style from './Style.module.scss';
 import Selector, {Object as SelectorObject} from '../../../../Components/Selector';
+import {IMAGE_INTEREST_OBJECT_CLASS_ID, IMAGE_INTEREST_OBJECT_CLASS_ID_TO_TEXT} from '../../../../Constant/IMAGE_INTEREST_OBJECT_CLASS';
 
-function ImageClassSelector()
+function ImageClassSelector(props)
 {
     const {Series, Item} = SelectorObject;
+    const {imageClassId, changeFilterClassId} = props;
     const seriesArray = [
-        new Series('图片类别', [
-            new Item('全部', () => null, true),
-            new Item('人物', () => null),
-            new Item('美食', () => null),
-            new Item('动物', () => null),
-            new Item('电子产品', () => null),
-            new Item('厨房用具', () => null),
-        ]),
-    ];
+        new Series('类别', Object.values({...IMAGE_INTEREST_OBJECT_CLASS_ID}).map(classId => new Item(IMAGE_INTEREST_OBJECT_CLASS_ID_TO_TEXT[classId],
+            () => {
+                changeFilterClassId(classId);
+            }, imageClassId === classId ))),
+    ]
     return <Selector seriesArray={seriesArray} className={Style.ImageClassSelector} />;
 }
 
