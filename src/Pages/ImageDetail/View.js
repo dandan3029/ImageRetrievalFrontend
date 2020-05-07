@@ -162,7 +162,7 @@ class ImageDetail extends React.Component {
                         </div>
                         <div className={Style.ImageInfoItem}>
                             <span className={Style.label}>兴趣物体：</span>
-                            <span>{imageInfo.objects}</span>
+                            <span>{imageInfo.categoryChinese}</span>
                         </div>
                     </div>
                 </div>

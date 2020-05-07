@@ -4,13 +4,12 @@ import Skeleton from 'antd/lib/skeleton';
 import {Link} from 'react-router-dom';
 
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
-import CardImageSrc from '../../Config/CARD_IMAGE';
 import ImageCard from '../../Components/ImageCard';
 import SearchBar from '../../Components/SearchBar';
 import HorizontalLine from '../../Components/HorizontalLine';
+import Api from '../../Api/RetrievalResult';
 
 import {withRouter} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 class RetrievalResult extends React.Component {
     constructor(props) {
@@ -24,79 +23,96 @@ class RetrievalResult extends React.Component {
     
     handleOnSearch = (value)  => {
         if (value !== '') {
-            console.log(value);
+            Api.sendGetRetrievalResultAsync(value)
+                .then(imageCardListWrapper => {
+                    const {imageCardList} = imageCardListWrapper;
+                    this.setState({
+                        searchKey: value,
+                        hasGotData: true,
+                        imageCardList: imageCardList
+                    });
+        });
         }
     }
 
     componentDidMount() {
         const {searchKey} = this.props.match.params;
-        const imageCardList = [
-            {
-                imageId: 0,
-                imageSrc: CardImageSrc[0],
-                description: '',
-            },
-            {
-                imageId: 1,
-                imageSrc: CardImageSrc[1],
-                description: '',
-            },
-            {
-                imageId: 2,
-                imageSrc: CardImageSrc[2],
-                description: '',
-            },
-            {
-                imageId: 3,
-                imageSrc: CardImageSrc[3],
-                description: '',
-            },
-            {
-                imageId: 4,
-                imageSrc: CardImageSrc[4],
-                description: '',
-            },
-            {
-                imageId: 5,
-                imageSrc: CardImageSrc[5],
-                description: '',
-            },
-            {
-                imageId: 6,
-                imageSrc: CardImageSrc[6],
-                description: '',
-            },
-            {
-                imageId: 7,
-                imageSrc: CardImageSrc[7],
-                description: '',
-            },
-            {
-                imageId: 8,
-                imageSrc: CardImageSrc[8],
-                description: '',
-            },
-            {
-                imageId: 9,
-                imageSrc: CardImageSrc[9],
-                description: '',
-            },
-            {
-                imageId: 10,
-                imageSrc: CardImageSrc[10],
-                description: '',
-            },
-            {
-                imageId: 11,
-                imageSrc: CardImageSrc[11],
-                description: '',
-            },
-        ]
-        this.setState({
-            searchKey: searchKey,
-            hasGotData: true,
-            imageCardList: imageCardList,
-        });
+        Api.sendGetRetrievalResultAsync(searchKey)
+        .then(imageCardListWrapper => {
+            const {imageCardList} = imageCardListWrapper;
+            this.setState({
+                searchKey: searchKey,
+                hasGotData: true,
+                imageCardList: imageCardList
+            })
+        })
+        // const imageCardList = [
+        //     {
+        //         imageId: 0,
+        //         imageSrc: CardImageSrc[0],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 1,
+        //         imageSrc: CardImageSrc[1],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 2,
+        //         imageSrc: CardImageSrc[2],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 3,
+        //         imageSrc: CardImageSrc[3],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 4,
+        //         imageSrc: CardImageSrc[4],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 5,
+        //         imageSrc: CardImageSrc[5],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 6,
+        //         imageSrc: CardImageSrc[6],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 7,
+        //         imageSrc: CardImageSrc[7],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 8,
+        //         imageSrc: CardImageSrc[8],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 9,
+        //         imageSrc: CardImageSrc[9],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 10,
+        //         imageSrc: CardImageSrc[10],
+        //         description: '',
+        //     },
+        //     {
+        //         imageId: 11,
+        //         imageSrc: CardImageSrc[11],
+        //         description: '',
+        //     },
+        // ]
+        // this.setState({
+        //     searchKey: searchKey,
+        //     hasGotData: true,
+        //     imageCardList: imageCardList,
+        // });
     }
 
     render() {

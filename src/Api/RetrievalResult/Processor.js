@@ -3,9 +3,11 @@ import {GET_RETRIEVAL_RESULT} from './ROUTE';
 import {STATUS_CODE} from '../../Constant';
 import message from 'antd/lib/message';
 
-export async function sendGetRetrievalResultAsync() {
+export async function sendGetRetrievalResultAsync(keyword) {
     try {
-        const {code, data} = await Function.getAsync(GET_RETRIEVAL_RESULT, false);
+        const {code, data} = await Function.getAsync(GET_RETRIEVAL_RESULT, false, {
+            keyword
+        });
         switch(code) {
             case STATUS_CODE.OK:
             {
