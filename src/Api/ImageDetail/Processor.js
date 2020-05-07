@@ -3,9 +3,12 @@ import {GET_IMAGE_INFO} from './ROUTE';
 import {STATUS_CODE} from '../../Constant';
 import message from 'antd/lib/message';
 
-export async function sendGetImageCardListAsync() {
-    try {
-        const {code, data} = await Function.getAsync(GET_IMAGE_INFO, false);
+export async function sendGetImageDetailAsync(imageId) {
+    // try {
+        const {code, data} = await Function.getAsync(GET_IMAGE_INFO, false, {
+            imageId
+        });
+        console.log(code, data);
         switch(code) {
             case STATUS_CODE.OK:
             {
@@ -43,9 +46,9 @@ export async function sendGetImageCardListAsync() {
             }
         }
 
-    } catch (e) {
-        console.error(e);
-        message.error('网络异常');
-        return null;
-    }
+    // } catch (e) {
+    //     console.error(e);
+    //     message.error('网络异常');
+    //     return null;
+    // }
 }

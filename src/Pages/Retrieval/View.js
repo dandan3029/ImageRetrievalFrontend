@@ -22,7 +22,7 @@ function Retrieval (props)
                         {
                             imageCardList.map( (imageCardInfo, i) => (
                                 <Link  key={i} to={`${PAGE_ID_TO_ROUTE[PAGE_ID.IMAGEDETAIL]}/${imageCardInfo.imageId}`}>
-                                    <ImageCard imageSrc={imageCardInfo.imageSrc} description={imageCardInfo.description}/>
+                                    <ImageCard imageSrc={imageCardInfo.imageSrc} categoryChinese={imageCardInfo.categoryChinese}/>
                                 </Link>))
                         }
                     </Skeleton>

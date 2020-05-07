@@ -2,11 +2,11 @@ import React from 'react';
 import Style from './Style.module.scss';
 import SearchBar from '../../Components/SearchBar';
 import HorizontalLine from '../../Components/HorizontalLine';
-import ImageSrc from '../../Static/000000131444.jpg';
 import previousSrc from '../../Static/left.png';
 import nextSrc from '../../Static/right.png';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
 import {Actions as ActiveImageCardProcessorAction} from '../../Components/ActiveImageCardProcessor';
+import Api from '../../Api/ImageDetail';
 
 import Button from 'antd/lib/button';
 import {DownloadOutlined} from '@ant-design/icons';
@@ -35,18 +35,25 @@ class ImageDetail extends React.Component {
             }
         }
         // send api request to get the imageInfo
-        const imageInfo = {
-            imageId: imageId,
-            imageName: '1.png',
-            imageSrc: activeImageCardList[activeImageCardIndex].imageSrc,
-            height: 400,
-            width: 500,
-            objects: activeImageCardList[activeImageCardIndex].description
-        }
-        this.setState({
-            imageId: imageId,
-            imageInfo: imageInfo
-        });
+        Api.sendGetImageDetailAsync(imageId)
+            .then(imageDetailWrapper => {
+                if(imageDetailWrapper) {
+                    console.log("image detail wrapper", imageDetailWrapper);
+                    const imageInfo = imageDetailWrapper;
+                    this.setState({
+                        imageId: imageId,
+                        imageInfo: imageInfo
+                    });
+                }
+            })
+        // const imageInfo = {
+        //     imageId: imageId,
+        //     imageName: '1.png',
+        //     imageSrc: activeImageCardList[activeImageCardIndex].imageSrc,
+        //     height: 400,
+        //     width: 500,
+        //     objects: activeImageCardList[activeImageCardIndex].description
+        // }
     }
 
     handleOnSearch(value) {

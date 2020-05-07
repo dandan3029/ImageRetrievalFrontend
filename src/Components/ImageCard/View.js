@@ -3,12 +3,12 @@ import Style from './Style.module.scss';
 
 function ImageCard (props) {
     const imageSrc = props.imageSrc;
-    const description = props.description;
+    const categoryChinese = props.categoryChinese;
     return (
         <div className={Style.ImageCard}>
             <img src={imageSrc}/>
             <div className={Style.mask}></div>
-            <span>{description}</span>
+            <span>{categoryChinese}</span>
         </div>
     )
 }

@@ -11,7 +11,6 @@ import RootContainer from '../ConponentContainers/RootContainer';
 
 const Routes = () => (
     <Router>
-        {/* <Route path='/' component={RootContainer}> */}
         <RootContainer>
           <Redirect exact from="/" to={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]} />
           <Route path={PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]+'/:searchKey'}
@@ -31,8 +30,6 @@ const Routes = () => (
               }})
           }
         </RootContainer>
-          
-        {/* </Route> */}
     </Router>
 )
 
