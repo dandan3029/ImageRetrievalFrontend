@@ -38,7 +38,6 @@ class ImageDetail extends React.Component {
         Api.sendGetImageDetailAsync(imageId)
             .then(imageDetailWrapper => {
                 if(imageDetailWrapper) {
-                    console.log("image detail wrapper", imageDetailWrapper);
                     const imageInfo = imageDetailWrapper;
                     this.setState({
                         imageId: imageId,
@@ -46,14 +45,6 @@ class ImageDetail extends React.Component {
                     });
                 }
             })
-        // const imageInfo = {
-        //     imageId: imageId,
-        //     imageName: '1.png',
-        //     imageSrc: activeImageCardList[activeImageCardIndex].imageSrc,
-        //     height: 400,
-        //     width: 500,
-        //     objects: activeImageCardList[activeImageCardIndex].description
-        // }
     }
 
     handleOnSearch(value) {
