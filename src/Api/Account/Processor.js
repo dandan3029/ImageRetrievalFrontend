@@ -1,5 +1,5 @@
 import Function from '../../Function';
-import {GET_VERIFICATION_CODE, LOGIN, SIGN_UP} from './ROUTE';
+import {GET_VERIFICATION_CODE, LOGIN, SIGN_UP} from './Route';
 import {STATUS_CODE} from '../../Constant';
 import message from 'antd/lib/message';
 import {Function as AuthProcessorFunction} from '../../Components/AuthProcessor';

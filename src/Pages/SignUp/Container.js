@@ -1,6 +1,7 @@
 import React from 'react';
 import SignUp from './View'; 
-import {REGEX} from '../../Config'
+import {REGEX} from '../../Config';
+import Api from '../../Api/Account';
 
 import message from 'antd/lib/message';
 
@@ -56,28 +57,38 @@ class SignUpContainer extends React.Component {
     }
 
     onGetVerificationCodeButtonClick() {
-        console.log("get verification code button click!");
-        this.setState({
-            hasSendVerificationCode: true,
-            timeToNextSend: 30,
-        }, () =>
-        {
-            const interval = setInterval(() =>
-            {
-                const {timeToNextSend} = this.state;
-                this.setState({
-                    timeToNextSend: timeToNextSend - 1,
-                });
-            }, 1000);
-
-            setTimeout(() =>
-            {
-                clearInterval(interval);
-                this.setState({
-                    hasSendVerificationCode: false,
-                });
-            }, 30 * 1000);
-        })
+        const {hasSendVerificationCode} = this.state;
+        if(!hasSendVerificationCode) {
+            const email = this.state.emailText;
+            if(!REGEX.EMAIL.test(email)) {
+                message.warning("请输入有效的邮箱");
+            } else {
+                const requestIsSuccessful = Api.sendGetVerificationCodeRequestAsync(email);
+                if (requestIsSuccessful) {
+                    this.setState({
+                        hasSendVerificationCode: true,
+                        timeToNextSend: 30,
+                    }, () =>
+                    {
+                        const interval = setInterval(() =>
+                        {
+                            const {timeToNextSend} = this.state;
+                            this.setState({
+                                timeToNextSend: timeToNextSend - 1,
+                            });
+                        }, 1000);
+            
+                        setTimeout(() =>
+                        {
+                            clearInterval(interval);
+                            this.setState({
+                                hasSendVerificationCode: false,
+                            });
+                        }, 30 * 1000);
+                    });
+                }
+            }
+        }
     }
 
     onSubmit = async e =>
@@ -111,9 +122,9 @@ class SignUpContainer extends React.Component {
         }
         else
         {
-            const requestIsSuccessful = true;
-            // const requestIsSuccessful = await Api.sendPostSignUpRequestAsync(username, password, name, age, address, email, verificationCode);
-            console.log(username, password, email, verificationCode)
+            // const requestIsSuccessful = true;
+            const requestIsSuccessful = await Api.sendPostSignUpRequestAsync(username, password, email, verificationCode);
+            console.log(username, password, email, verificationCode);
             if (requestIsSuccessful)
             {
                 this.setState({
