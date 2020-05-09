@@ -102,18 +102,16 @@ class ImageDetail extends React.Component {
         setActiveImageCardIndex(currentImageCardIndex);
         const currentImageId = activeImageCardList[currentImageCardIndex].imageId;
         // send api request to get the imageInfo
-        const imageInfo = {
-            imageId: currentImageId,
-            imageName: '2.png',
-            imageSrc: activeImageCardList[currentImageCardIndex].imageSrc,
-            height: 400,
-            width: 500,
-            objects: activeImageCardList[currentImageCardIndex].description,
-        }
-        this.setState({
-            imageId: currentImageId,
-            imageInfo: imageInfo
-        });
+        Api.sendGetImageDetailAsync(currentImageId).
+            then(imageDetailWrapper => {
+                if(imageDetailWrapper) {
+                    const imageInfo = imageDetailWrapper;
+                    this.setState({
+                        imageId: currentImageId,
+                        imageInfo: imageInfo
+                    });
+                }
+            })
     }
 
     render() {

@@ -9,7 +9,8 @@ import {IMAGE_INTEREST_OBJECT_CLASS_ID, IMAGE_INTEREST_OBJECT_CLASS_ID_TO_TEXT} 
 
 const initValues = {
     AuthProcessor: {
-        hasLoggedIn: false,
+        hasLoggedIn: true,
+        email: "1766392942@qq.com"
     },
     Retrieval: {
         imageClassId: IMAGE_INTEREST_OBJECT_CLASS_ID.ALL_CLASSES,

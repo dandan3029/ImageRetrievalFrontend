@@ -2,9 +2,11 @@ import React from 'react';
 import SelfCenter from './View';
 import CardImageSrc from '../../Config/CARD_IMAGE';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
+import Api from '../../Api/SelfCenter';
 
 import message from 'antd/lib/message';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 class SelfCenterContainer extends React.Component {
     constructor(props) {
@@ -18,62 +20,28 @@ class SelfCenterContainer extends React.Component {
     }
 
     componentDidMount() {
-        const imageCardList = [
-            {
-                uid: 0,
-                name: 'image.png',
-                status: 'done', 
-                url: CardImageSrc[0],
-                description: '人物',
-            },
-            {
-                uid: 1,
-                name: 'image.png',
-                status: 'done',
-                url: CardImageSrc[1],
-                description: '动物',
-            },
-            {
-                uid: 2,
-                name: 'image.png',
-                status: 'done',
-                url: CardImageSrc[2],
-                description: '鸟',
-            },
-            {
-                uid: 3,
-                name: 'image.png',
-                status: 'done',
-                url: CardImageSrc[3],
-                description: '鱼',
-            },
-            {
-                uid: 4,
-                name: 'image.png', 
-                status: 'done',
-                url: CardImageSrc[4],
-                description: '厨具',
-            },
-            {
-                uid: 5,
-                name: 'image.png', 
-                status: 'done',
-                url: CardImageSrc[5],
-                description: '牛奶',
-            },
-        ];
-        const hasGotData = true;
-        const userInfo = {
-            username: '胖胖',
-            password: '1234567890',
-            email: '1766392942@qq.com',
-        }
-        this.setState({
-            loading: false,
-            userInfo: userInfo,
-            imageCardList: imageCardList,
-            hasGotData: hasGotData
-        })
+        const {email} = this.props;
+        Api.sendGetUserInfoAsync(email)
+            .then(userInfoWrapper => {
+                if(userInfoWrapper) {
+                    const {userInfo, imageCardList} = userInfoWrapper;
+                    const imageCardListFormat = [];
+                    for(var i = 0 ; i < imageCardList.length; i ++ ) {
+                        imageCardListFormat.push({
+                            uid: imageCardList[i].imageId,
+                            name: imageCardList[i].imageName,
+                            status: 'done',
+                            url: imageCardList[i].imageSrc,
+                        })
+                    }
+                    this.setState({
+                        userInfo,
+                        imageCardList: imageCardListFormat,
+                        hasGotData: true,
+                        loading: false,
+                    });
+                }
+            })
     }
 
     getBase64(img, callback) {
@@ -95,6 +63,18 @@ class SelfCenterContainer extends React.Component {
     }
 
     onChange ({ file, fileList }) {
+        console.log(file);
+        console.log(fileList);
+        const length = fileList.length;
+        if (length > 0) {
+            if(file.uid === fileList[length -1].uid) {
+                console.log("上传");
+            } else {
+                console.log("删除");
+            }
+        } else {
+            console.log("删除");
+        }
         this.setState({imageCardList: fileList});
     }
 
@@ -104,7 +84,6 @@ class SelfCenterContainer extends React.Component {
     }
 
     render() {
-        // const {userInfo, loading, imageCardList, hasGotData} = this.state;
         return (
             <SelfCenter userInfo={this.state.userInfo}
                         imageCardList={this.state.imageCardList}
@@ -118,5 +97,11 @@ class SelfCenterContainer extends React.Component {
     }
 }
 
+const mapStatetoProps = (state) => {
+    const {AuthProcessor: { email} } = state;
+    return {email}
+} 
+
 SelfCenterContainer = withRouter(SelfCenterContainer)
-export default SelfCenterContainer;
+// export default SelfCenterContainer;
+export default connect(mapStatetoProps)(SelfCenterContainer);
