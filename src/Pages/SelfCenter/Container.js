@@ -57,14 +57,14 @@ class SelfCenterContainer extends React.Component {
         return isJpgOrPng && isLt6M;
     }
 
-    customRequest({file, filename}) {
+    customRequest({file, filename, onSuccess}) {
         console.log("uploading...");
         var formData = new FormData();
         formData.append(filename,file);
         formData.append("username", "wangdandan");
         axios.post(`/selfCenter/uploadImage`, formData)
             .then(res => {
-                console.log('res=>',res);
+                onSuccess(res, file);
             });
     }
         // Api.sendPostUploadImageAsync(file)

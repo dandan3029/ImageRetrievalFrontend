@@ -39,12 +39,13 @@ class Banner extends React.Component {
     handleOnChange(info) {
         const { status } = info.file;
         if (status !== 'uploading') {
-          console.log(info.file, info.fileList);
+            console.log(info.file, info.fileList);
         }
         if (status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully.`);
+          message.success(`${info.file.name} 图片上传成功！`);
+          this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]}/${'飞机'}`);
         } else if (status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
+          message.error(`${info.file.name} 图片上传失败`);
         }
     }
     beforeUpload(file) {
@@ -59,16 +60,14 @@ class Banner extends React.Component {
         return isJpgOrPng && isLt6M;
     }
 
-    customRequest({file, filename}) {
+    customRequest({file, filename, onSuccess}) {
         console.log("uploading...");
         var formData = new FormData();
         formData.append(filename,file);
         formData.append("username", "wangdandan");
         axios.post(`/selfCenter/uploadImage`, formData)
             .then(res => {
-                console.log('res=>',res);
-                message.success("文件上传成功！");
-                this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]}/${'飞机'}`);
+                onSuccess(res, file);
             });
     }
 
