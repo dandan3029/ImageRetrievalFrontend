@@ -18,6 +18,42 @@
             justify-content: center;
             .HomeSearch {
                 margin-top: 60px;
+                .UploadModal {
+                    position: absolute;
+                    top: 240px;
+                    width: 600px;
+                    height: 240px;
+                    background-color: rgba(0,0,0,0.8);
+                    z-index: 100;
+                    color: white;
+                    :global {
+                        .ant-upload-drag-container {
+                            width: 600px;
+                            height: 210px;
+                            background-color: rgba(255,255,255,0);
+                        }
+                        .ant-upload-drag {
+                            width: 600px;
+                            height: 210px;
+                            background-color: rgba(255,255,255,0);
+                        }
+                        .ant-upload-btn {
+                            width: 600px;
+                            height: 210px;
+                            padding: 0;
+                            background-color:rgba(0,0,0,0);
+                        }
+                        p {
+                            color: white;
+                        }
+                    }
+                    .UploadModalHeader {
+                        height: 30px;
+                        padding: 6px 10px;
+                        color: white;
+                        text-align: right;
+                    }
+                }
                 .Logo {
                     width: 270px;
                     height: 180px;
@@ -31,14 +67,18 @@
                     height: 54px;
                     :global {
                         // 搜索文本框
-                        .ant-input {
+                        .ant-input-affix-wrapper {
                             height: 54px;
+                            line-height: 46px;
                             background: opacity(0);
                             font-size: 15px;
                             background-color: transparent;
                             border: 2px white solid;
                             border-right: none;
                             color: white;
+                        }
+                        .ant-input {
+                            background-color: transparent;
                         }
                         .ant-input::-webkit-input-placeholder { /* WebKit browsers */ 
                             color: white;
