@@ -1,12 +1,13 @@
 import React from 'react';
 import SelfCenter from './View';
-import CardImageSrc from '../../Config/CARD_IMAGE';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
 import Api from '../../Api/SelfCenter';
 
 import message from 'antd/lib/message';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+
+import axios from 'axios';
 
 class SelfCenterContainer extends React.Component {
     constructor(props) {
@@ -44,12 +45,6 @@ class SelfCenterContainer extends React.Component {
             })
     }
 
-    getBase64(img, callback) {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => callback(reader.result));
-        reader.readAsDataURL(img);
-    }
-
     beforeUpload(file) {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJpgOrPng) {
@@ -62,18 +57,28 @@ class SelfCenterContainer extends React.Component {
         return isJpgOrPng && isLt6M;
     }
 
+    customRequest({file, filename}) {
+        console.log("uploading...");
+        var formData = new FormData();
+        formData.append(filename,file);
+        formData.append("username", "wangdandan");
+        axios.post(`/selfCenter/uploadImage`, formData)
+            .then(res => {
+                console.log('res=>',res);
+            });
+    }
+        // Api.sendPostUploadImageAsync(file)
+        //     .then(dataWrapper => {
+        //         if (dataWrapper) {
+        //             console.log(dataWrapper);
+        //         }}) 
+        //     }
+
     onChange ({ file, fileList }) {
-        console.log(file);
-        console.log(fileList);
-        const length = fileList.length;
-        if (length > 0) {
-            if(file.uid === fileList[length -1].uid) {
-                console.log("上传");
-            } else {
-                console.log("删除");
-            }
-        } else {
-            console.log("删除");
+        if (file.status === 'done') {
+            message.success(`${file.name} file uploaded successfully`);
+        } else if (file.status === 'error') {
+            message.error(`${file.name} file upload failed`);
         }
         this.setState({imageCardList: fileList});
     }
@@ -92,6 +97,7 @@ class SelfCenterContainer extends React.Component {
                         beforeUpload={this.beforeUpload.bind(this)}
                         onChange={this.onChange.bind(this)}
                         onPreview={this.onPreview.bind(this)}
+                        customRequest={this.customRequest.bind(this)}
                         />
         )
     }

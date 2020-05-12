@@ -34,6 +34,7 @@ async function postAsync(url, params = {}, config = {})
     {
         try
         {
+            console.log("params", params);
             const res = await axios.post(url, params, config);
             resolve(res.data);
         }

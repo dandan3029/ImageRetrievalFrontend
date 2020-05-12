@@ -7,7 +7,7 @@ import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import Upload from 'antd/lib/upload';
 
 function SelfCenter(props) {
-    const {userInfo, imageCardList, hasGotData, loading, beforeUpload, onChange, onPreview } = props;
+    const {userInfo, imageCardList, hasGotData, loading, beforeUpload, customRequest, onChange, onPreview } = props;
     return (
         <div className={Style.SelfCenter}>
             <div className={Style.background} />
@@ -35,10 +35,10 @@ function SelfCenter(props) {
                             <Upload listType="picture-card"
                                     className={Style.imageCardWrapper}
                                     fileList={imageCardList}
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                     beforeUpload={beforeUpload}
                                     onPreview={onPreview}
                                     onChange={onChange}
+                                    customRequest={customRequest}
                                     >
                                 {loading?<LoadingOutlined/>: <PlusOutlined /> }
                             </Upload>

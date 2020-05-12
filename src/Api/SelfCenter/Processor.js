@@ -51,9 +51,11 @@ export async function sendGetUserInfoAsync(email) {
 }
 
 
-export async function sendPostUploadImageAsync() {
+export async function sendPostUploadImageAsync(formData) {
     try {
-        const {code, data} = await Function.postAsync(UPLOAD_IMAGE, false);
+        const {code, data} = await Function.postAsync(UPLOAD_IMAGE, {formData}, false, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        });
         switch(code) {
             case STATUS_CODE.OK:
             {
