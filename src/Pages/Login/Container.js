@@ -3,6 +3,7 @@ import Login from './View';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../Config/ROUTE';
 import {REGEX} from '../../Config';
 import {Actions as AuthProcessorActions} from '../../Components/AuthProcessor';
+import Api from '../../Api/Account';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -37,16 +38,18 @@ class LoginContainer extends React.Component {
         }
         else
         {
-            const {setLoggedIn} = this.props;
-            setLoggedIn();
-            this.props.history.push(PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]);
             // const {setLoggedIn} = this.props;
-            // const requestIsSuccessful = await Api.sendPostLoginRequestAsync(username, password);
-            // if (requestIsSuccessful)
-            // {
-            //     setLoggedIn();
-            //     browserHistory.push(PAGE_ID_TO_ROUTE[REQUIRE_LOGIN_PAGE_ID.INSURANCE_COMPANY_INSURANCE_LIST]);
-            // }
+            // setLoggedIn();
+            // this.props.history.push(PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]);
+            const {setLoggedIn} = this.props;
+            Api.sendPostLoginRequestAsync(username, password)
+                .then(dataWrapper => {
+                    if(dataWrapper) {
+                        const {email} = dataWrapper;
+                        setLoggedIn(email);
+                        this.props.history.push(PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVAL]);
+                    }
+                })
         }
     }
 

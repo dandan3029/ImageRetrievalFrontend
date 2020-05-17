@@ -25,6 +25,7 @@ class SelfCenterContainer extends React.Component {
         Api.sendGetUserInfoAsync(email)
             .then(userInfoWrapper => {
                 if(userInfoWrapper) {
+                    console.log(userInfoWrapper);
                     const {userInfo, imageCardList} = userInfoWrapper;
                     const imageCardListFormat = [];
                     for(var i = 0 ; i < imageCardList.length; i ++ ) {
@@ -61,9 +62,10 @@ class SelfCenterContainer extends React.Component {
         console.log("uploading...");
         var formData = new FormData();
         formData.append(filename,file);
-        formData.append("username", "wangdandan");
+        formData.append("imageId", file.uid.split('-')[2]);
         axios.post(`/selfCenter/uploadImage`, formData)
             .then(res => {
+                console.log(res);
                 onSuccess(res, file);
             });
     }
@@ -75,15 +77,18 @@ class SelfCenterContainer extends React.Component {
         //     }
 
     onChange ({ file, fileList }) {
+        console.log(file);
         if (file.status === 'done') {
+            console.log("upload successfully");
             message.success(`${file.name} file uploaded successfully`);
         } else if (file.status === 'error') {
             message.error(`${file.name} file upload failed`);
         }
-        this.setState({imageCardList: fileList});
+        this.setState({imageCardList:fileList});
     }
 
     onPreview(file) {
+        this.componentDidMount();
         const imageId = file.uid;
         this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.IMAGEDETAIL]}/${imageId}`);
     }

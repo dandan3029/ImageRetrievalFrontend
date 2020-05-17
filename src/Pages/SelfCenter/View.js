@@ -18,10 +18,10 @@ function SelfCenter(props) {
                         <span className={Style.itemKey}>用户名：</span>
                         <span className={Style.itemValue}>{userInfo.username}</span>
                     </div>
-                    <div className={Style.item}>
+                    {/* <div className={Style.item}>
                         <span className={Style.itemKey}>密码：</span>
                         <span className={Style.itemValue}>{userInfo.password}</span>
-                    </div>
+                    </div> */}
                     <div className={Style.item}>
                         <span className={Style.itemKey}>注册邮箱：</span>
                         <span className={Style.itemValue}>{userInfo.email}</span>

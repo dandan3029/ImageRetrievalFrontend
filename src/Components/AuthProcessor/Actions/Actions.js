@@ -1,8 +1,9 @@
 import * as ACTION_TYPE from './ACTION_TYPE';
 
-export function setLoggedInAction() {
+export function setLoggedInAction(email) {
     return {
-        type: ACTION_TYPE.SET_LOGGED_IN
+        type: ACTION_TYPE.SET_LOGGED_IN,
+        email: email,
     };
 }
 

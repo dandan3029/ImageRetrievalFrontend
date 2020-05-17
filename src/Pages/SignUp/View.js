@@ -72,8 +72,7 @@ function SignUp (props)
                                        } />
                             </div>
                             <div className={Style.linkWrapper}>
-                                <Link onlyActiveOnIndex={false}
-                                      to={PAGE_ID_TO_ROUTE[PAGE_ID.LOGIN]}>已有帐号？去登录</Link>
+                                <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.LOGIN]}>已有帐号？去登录</Link>
                             </div>
                             <div className={Style.buttonWrapper}>
                                 <Button htmlType={'button'}

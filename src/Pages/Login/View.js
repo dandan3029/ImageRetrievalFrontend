@@ -31,7 +31,7 @@ function Login (props)
                                     onChange={onPasswordChange} />
                         </div>
                         <div className={Style.linkWrapper}>
-                            <Link onlyActiveOnIndex={false} to={'#'}>忘记密码？</Link>
+                            <Link to={'#'}>忘记密码？</Link>
                         </div>
                         <div className={Style.buttonWrapper}>
                             <Button htmlType={'button'}

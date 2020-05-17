@@ -64,8 +64,7 @@ class Banner extends React.Component {
         console.log("uploading...");
         var formData = new FormData();
         formData.append(filename,file);
-        formData.append("username", "wangdandan");
-        axios.post(`/selfCenter/uploadImage`, formData)
+        axios.post(`/retrieval/detectImage`, formData)
             .then(res => {
                 onSuccess(res, file);
             });

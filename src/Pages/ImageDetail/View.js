@@ -23,6 +23,7 @@ class ImageDetail extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         const {imageId} = this.props.match.params;
         const {activeImageCardList, setActiveImageCardIndex} = this.props;
         var activeImageCardIndex = 0
@@ -35,10 +36,12 @@ class ImageDetail extends React.Component {
             }
         }
         // send api request to get the imageInfo
+        console.log(imageId);
         Api.sendGetImageDetailAsync(imageId)
             .then(imageDetailWrapper => {
                 if(imageDetailWrapper) {
                     const imageInfo = imageDetailWrapper;
+                    console.log(imageInfo);
                     this.setState({
                         imageId: imageId,
                         imageInfo: imageInfo

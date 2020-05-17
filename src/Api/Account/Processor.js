@@ -8,7 +8,7 @@ export async function sendPostLoginRequestAsync(username, password)
 {
     try
     {
-        const {code} = await Function.postAsync(LOGIN, {
+        const {code, data} = await Function.postAsync(LOGIN, {
             username,
             password,
         });
@@ -16,7 +16,9 @@ export async function sendPostLoginRequestAsync(username, password)
         {
             case STATUS_CODE.OK:
             {
-                return true;
+                console.log(data);
+                message.success('登录成功');
+                return data;
             }
             case STATUS_CODE.BAD_REQUEST:
             {

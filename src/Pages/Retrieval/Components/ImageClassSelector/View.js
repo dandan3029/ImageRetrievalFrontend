@@ -8,7 +8,7 @@ function ImageClassSelector(props)
     const {Series, Item} = SelectorObject;
     const {imageClassId, changeFilterClassId} = props;
     const seriesArray = [
-        new Series('类别', Object.values({...IMAGE_INTEREST_OBJECT_CLASS_ID}).map(classId => new Item(IMAGE_INTEREST_OBJECT_CLASS_ID_TO_TEXT[classId],
+        new Series('精选图片', Object.values({...IMAGE_INTEREST_OBJECT_CLASS_ID}).map(classId => new Item(IMAGE_INTEREST_OBJECT_CLASS_ID_TO_TEXT[classId],
             () => {
                 changeFilterClassId(classId);
             }, imageClassId === classId ))),
