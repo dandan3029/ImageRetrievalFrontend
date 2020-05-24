@@ -26,6 +26,10 @@ function SelfCenter(props) {
                         <span className={Style.itemKey}>注册邮箱：</span>
                         <span className={Style.itemValue}>{userInfo.email}</span>
                     </div>
+                    <div className={Style.item}>
+                        <span className={Style.itemKey}>个人积分：</span>
+                        <span className={Style.itemValue}>{userInfo.score}</span>
+                    </div>
                 </div>
 
                 <div className={Style.imageWrapper}>

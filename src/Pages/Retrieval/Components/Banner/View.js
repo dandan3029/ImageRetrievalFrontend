@@ -32,9 +32,6 @@ class Banner extends React.Component {
     handleOnCloseUploadModal = () => {
         this.setState({showUploadModal: false});
     }
-    handleOnUpload = () => {
-
-    }
 
     handleOnChange(info) {
         const { status } = info.file;
