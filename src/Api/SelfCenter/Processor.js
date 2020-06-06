@@ -9,6 +9,8 @@ export async function sendGetUserInfoAsync(email) {
         switch(code) {
             case STATUS_CODE.OK:
             {
+                console.log("user info");
+                console.log(data);
                 return data;
             }
             case STATUS_CODE.BAD_REQUEST:

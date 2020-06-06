@@ -9,9 +9,12 @@ import {Actions as ActiveImageCardProcessorAction} from '../../Components/Active
 import Api from '../../Api/ImageDetail';
 
 import Button from 'antd/lib/button';
+import message from 'antd/lib/message';
 import {DownloadOutlined} from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+
+import axios from 'axios';
 
 class ImageDetail extends React.Component {
     constructor(props) {
@@ -23,7 +26,6 @@ class ImageDetail extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         const {imageId} = this.props.match.params;
         const {activeImageCardList, setActiveImageCardIndex} = this.props;
         var activeImageCardIndex = 0
@@ -36,12 +38,10 @@ class ImageDetail extends React.Component {
             }
         }
         // send api request to get the imageInfo
-        console.log(imageId);
         Api.sendGetImageDetailAsync(imageId)
             .then(imageDetailWrapper => {
                 if(imageDetailWrapper) {
                     const imageInfo = imageDetailWrapper;
-                    console.log(imageInfo);
                     this.setState({
                         imageId: imageId,
                         imageInfo: imageInfo
@@ -54,6 +54,22 @@ class ImageDetail extends React.Component {
         if(value !== '') {
             this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.RETRIEVALRESULT]}/${value}`);
         }
+    }
+
+    downloadImageAsync(src, name) {
+        const email = this.props.email;
+        console.log(email);
+        Api.sendGetDownloadImageAsync(email)
+            .then(okWrapper => {
+                if(okWrapper) {
+                    const {ok} = okWrapper;
+                    if (ok) {
+                        this.downloadImage(src, name);
+                    } else {
+                        message.warning("积分不足，请上传图片以获得积分!");
+                    }
+                }
+            })
     }
 
     downloadImage(src, name) {
@@ -139,7 +155,7 @@ class ImageDetail extends React.Component {
                                     shape="round" 
                                     icon={<DownloadOutlined />}
                                     size='large' 
-                                    onClick={this.downloadImage.bind(this, imageInfo.imageSrc, imageInfo.imageName)}>
+                                    onClick={this.downloadImageAsync.bind(this, imageInfo.imageSrc, imageInfo.imageName)}>
                                 Download
                             </Button>
                         </div>
@@ -164,8 +180,9 @@ class ImageDetail extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const {ActiveImageCardProcessor: {activeImageCardList, activeImageCardIndex}} = state; 
+    const {ActiveImageCardProcessor: {activeImageCardList, activeImageCardIndex}, AuthProcessor: { email} } = state; 
     return {
+        email,
         activeImageCardList,
         activeImageCardIndex
     };

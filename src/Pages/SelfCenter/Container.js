@@ -25,7 +25,6 @@ class SelfCenterContainer extends React.Component {
         Api.sendGetUserInfoAsync(email)
             .then(userInfoWrapper => {
                 if(userInfoWrapper) {
-                    console.log(userInfoWrapper);
                     const {userInfo, imageCardList} = userInfoWrapper;
                     const imageCardListFormat = [];
                     for(var i = 0 ; i < imageCardList.length; i ++ ) {
@@ -49,37 +48,38 @@ class SelfCenterContainer extends React.Component {
     beforeUpload(file) {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJpgOrPng) {
-            message.error('You can only upload JPG/PNG file!');
+            message.error('只能上传 JPG/PNG 文件！');
         }
         const isLt6M = file.size / 1024 / 1024 < 10;
         if (!isLt6M) {
-            message.error('Image must smaller than 6MB!');
+            message.error('图片必须小于10M！');
         }
         return isJpgOrPng && isLt6M;
     }
 
     customRequest({file, filename, onSuccess}) {
+        const email = this.props.email;
         console.log("uploading...");
         var formData = new FormData();
         formData.append(filename,file);
         formData.append("imageId", file.uid.split('-')[2]);
+        formData.append("email",email);
         axios.post(`/selfCenter/uploadImage`, formData)
             .then(res => {
-                console.log(res);
                 onSuccess(res, file);
+                const dataWrapper = res.data;
+                const {code, data} = dataWrapper;
+                const {score} = data;
+                const newUserInfo = {
+                    ...this.state.userInfo,
+                    score: score,
+                };
+                this.setState({userInfo: newUserInfo});
             });
     }
-        // Api.sendPostUploadImageAsync(file)
-        //     .then(dataWrapper => {
-        //         if (dataWrapper) {
-        //             console.log(dataWrapper);
-        //         }}) 
-        //     }
 
     onChange ({ file, fileList }) {
-        console.log(file);
         if (file.status === 'done') {
-            console.log("upload successfully");
             message.success(`${file.name} file uploaded successfully`);
         } else if (file.status === 'error') {
             message.error(`${file.name} file upload failed`);
